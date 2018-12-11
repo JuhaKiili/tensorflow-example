@@ -10,6 +10,8 @@ import json
 import os
 import sys
 from shutil import copy2
+import random
+import math
 import numpy as np
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
@@ -152,7 +154,7 @@ def train():
             # Record summaries and test-set accuracy
             summary, acc = sess.run([merged, accuracy], feed_dict=feed_dict(False))
             test_writer.add_summary(summary, i)
-            print(json.dumps({'step': i, 'accuracy': acc.item()}))
+            print(json.dumps({'step': i, 'accuracy': acc.item(), 'sinwave': FLAGS.sinscale * math.sin(i * FLAGS.sinfreq)}))
         else:
             # Record train set summaries, and train
             if i % 100 == 99:
@@ -172,7 +174,7 @@ def train():
                 train_writer.add_summary(summary, i)
 
     _, acc = sess.run([merged, accuracy], feed_dict=feed_dict(False))
-    print(json.dumps({'step': FLAGS.max_steps, 'accuracy': acc.item()}))
+    print(json.dumps({'step': FLAGS.max_steps, 'accuracy': acc.item(), 'sinwave': FLAGS.sinscale * math.sin(FLAGS.max_steps * FLAGS.sinfreq)}))
 
     train_writer.close()
     test_writer.close()
@@ -206,5 +208,7 @@ if __name__ == '__main__':
                         help='If true, uses fake data for unit testing')
     parser.add_argument('--log_dir', type=str, default='/tmp/tensorflow/mnist/logs/mnist_with_summaries',
                         help='Summaries log directory')
+    parser.add_argument('--sinfreq', type=float, default=1.0)
+    parser.add_argument('--sinscale', type=float, default=1.0)
     FLAGS, unparsed = parser.parse_known_args()
     tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)

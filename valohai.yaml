@@ -1,38 +1,8 @@
 ---
 
 - step:
-    name: Train model
-    image: gcr.io/tensorflow/tensorflow:1.5.0-devel-gpu
-    command: python train.py {parameters}
-    parameters:
-      - name: max_steps
-        pass-as: --max_steps={v}
-        description: Number of steps to run the trainer
-        type: integer
-        default: 300
-      - name: learning_rate
-        pass-as: --learning_rate={v}
-        description: Initial learning rate
-        type: float
-        default: 0.001
-      - name: dropout
-        pass-as: --dropout={v}
-        description: Keep probability for training dropout
-        type: float
-        default: 0.9
-    inputs:
-      - name: training-set-images
-        default: https://valohai-mnist.s3.amazonaws.com/train-images-idx3-ubyte.gz
-      - name: training-set-labels
-        default: https://valohai-mnist.s3.amazonaws.com/train-labels-idx1-ubyte.gz
-      - name: test-set-images
-        default: https://valohai-mnist.s3.amazonaws.com/t10k-images-idx3-ubyte.gz
-      - name: test-set-labels
-        default: https://valohai-mnist.s3.amazonaws.com/t10k-labels-idx1-ubyte.gz
-
-- step:
     name: Batch feature extraction
-    image: gcr.io/tensorflow/tensorflow:1.5.0-devel-gpu
+    image: tensorflow/tensorflow:1.5.0-devel
     command: python batch_feature_extraction.py
     inputs:
       - name: training-set-images
@@ -45,8 +15,48 @@
         default: https://valohai-mnist.s3.amazonaws.com/t10k-labels-idx1-ubyte.gz
 
 - step:
+    name: Train model
+    image: tensorflow/tensorflow:1.5.0-devel
+    command: python train.py {parameters}
+    parameters:
+      - name: max_steps
+        pass-as: --max_steps={v}
+        description: Number of steps to run the trainer
+        type: integer
+        default: 1000
+      - name: learning_rate
+        pass-as: --learning_rate={v}
+        description: Initial learning rate
+        type: float
+        default: 0.0001
+      - name: dropout
+        pass-as: --dropout={v}
+        description: Keep probability for training dropout
+        type: float
+        default: 0.9
+      - name: sinfreq
+        pass-as: --sinfreq={v}
+        description: Sine wave frequency
+        type: float
+        default: 1.0
+      - name: sinscale
+        pass-as: --sinscale={v}
+        description: Sine wave scale
+        type: float
+        default: 1.0
+    inputs:
+      - name: training-set-images
+        default: https://valohai-mnist.s3.amazonaws.com/train-images-idx3-ubyte.gz
+      - name: training-set-labels
+        default: https://valohai-mnist.s3.amazonaws.com/train-labels-idx1-ubyte.gz
+      - name: test-set-images
+        default: https://valohai-mnist.s3.amazonaws.com/t10k-images-idx3-ubyte.gz
+      - name: test-set-labels
+        default: https://valohai-mnist.s3.amazonaws.com/t10k-labels-idx1-ubyte.gz
+
+- step:
     name: Worker environment check
-    image: gcr.io/tensorflow/tensorflow:1.5.0-devel-gpu
+    image: tensorflow/tensorflow:1.5.0-devel
     command:
       - pwd
       - ls -la
