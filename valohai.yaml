@@ -55,6 +55,38 @@
         default: https://valohai-mnist.s3.amazonaws.com/t10k-labels-idx1-ubyte.gz
 
 - step:
+    name: Produce Metadata
+    image: tensorflow/tensorflow:1.5.0-devel
+    parameters:
+      - name: max_steps
+        pass-as: --max_steps={v}
+        description: Number of steps
+        type: integer
+        default: 1000
+      - name: sinfreq
+        pass-as: --sinfreq={v}
+        description: Sine wave frequency
+        type: float
+        default: 1.0
+      - name: sinscale
+        pass-as: --sinscale={v}
+        description: Sine wave scale
+        type: float
+        default: 1.0
+      - name: sinfreq2
+        pass-as: --sinfreq2={v}
+        description: Sine wave frequency 2
+        type: float
+        default: 1.0
+      - name: sinscale2
+        pass-as: --sinscale2={v}
+        description: Sine wave scale 2
+        type: float
+        default: 1.0
+    command:
+      python sinwave.py {parameters}
+
+- step:
     name: Worker environment check
     image: tensorflow/tensorflow:1.5.0-devel
     command:
