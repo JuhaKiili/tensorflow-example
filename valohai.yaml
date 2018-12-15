@@ -83,6 +83,11 @@
         description: Sine wave scale 2
         type: float
         default: 1.0
+      - name: stepdelay
+        pass-as: --stepdelay={v}
+        description: Delay per step
+        type: float
+        default: 0.0
     command:
       python sinwave.py {parameters}
 
