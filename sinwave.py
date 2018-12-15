@@ -15,7 +15,7 @@ if __name__ == '__main__':
   parser.add_argument('--sinscale2', type=float, default=1.0)
   parser.add_argument('--stepdelay', type=float, default=0.01)
   FLAGS, unparsed = parser.parse_known_args()
-  for i in range(0, 100):
+  for i in range(0, FLAGS.max_steps):
     print( \
       json.dumps({ \
         'step': i, \
