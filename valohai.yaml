@@ -62,7 +62,7 @@
         pass-as: --max_steps={v}
         description: Number of steps
         type: integer
-        default: 100
+        default: 20
       - name: sinfreq
         pass-as: --sinfreq={v}
         description: Sine wave frequency
