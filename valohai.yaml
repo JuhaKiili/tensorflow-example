@@ -62,7 +62,7 @@
         pass-as: --max_steps={v}
         description: Number of steps
         type: integer
-        default: 1000
+        default: 100
       - name: sinfreq
         pass-as: --sinfreq={v}
         description: Sine wave frequency
@@ -87,7 +87,7 @@
         pass-as: --stepdelay={v}
         description: Delay per step
         type: float
-        default: 0.0
+        default: 0.5
     command:
       python sinwave.py {parameters}
 
