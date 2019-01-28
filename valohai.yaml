@@ -101,3 +101,28 @@
       - python --version
       - nvcc --version | grep release
       - cat /usr/include/x86_64-linux-gnu/cudnn_v*.h | grep CUDNN_MAJOR -A 2
+
+- step:
+    name: Test multiple optional variables
+    image:
+    parameters:
+      - name: notopt
+        pass-as: --notopt={v}
+        description: Not optional
+        type: float
+        default: 1.0
+        optional: true
+      - name: varA
+        pass-as: --varA={v}
+        description: Optional variable A
+        type: float
+        default: 1.0
+        optional: true
+      - name: varB
+        pass-as: --varA={v}
+        description: Optional variable A
+        type: float
+        default: 1.0
+        optional: true
+    command:
+      - echo {parameters}
