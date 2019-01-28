@@ -104,14 +104,13 @@
 
 - step:
     name: Test multiple optional variables
-    image:
+    image: tensorflow/tensorflow:1.5.0-devel
     parameters:
       - name: notopt
         pass-as: --notopt={v}
         description: Not optional
         type: float
         default: 1.0
-        optional: true
       - name: varA
         pass-as: --varA={v}
         description: Optional variable A
