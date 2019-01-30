@@ -21,9 +21,8 @@
       - name: validation_size
         pass-as: --validation_size={v}
         description: How many images for validation
-        type: int
+        type: integer
         default: 5000
-    inputs:
 
 - step:
     name: Worker environment check
