@@ -10,8 +10,6 @@ import json
 import os
 import sys
 from shutil import copy2
-import random
-import math
 import numpy as np
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
@@ -23,7 +21,8 @@ FLAGS = None
 
 def train():
     # Import input data
-    INPUTS_DIR = os.getenv('VH_INPUTS_DIR', '/tmp/tensorflow/mnist/inputs')
+    # INPUTS_DIR = os.getenv('VH_INPUTS_DIR', '/tmp/tensorflow/mnist/inputs')
+    INPUTS_DIR = '/home/juha/ws/mapr36/tensorflow-example/inputs'
     data_set_files = [
         get_first_file(os.path.join(INPUTS_DIR, 'training-set-images')),
         get_first_file(os.path.join(INPUTS_DIR, 'training-set-labels')),
@@ -33,8 +32,7 @@ def train():
     train_dir = os.getcwd()
     for file in data_set_files:
         copy2(file, train_dir)
-    mnist = input_data.read_data_sets(train_dir, fake_data=FLAGS.fake_data)
-
+    mnist = input_data.read_data_sets(train_dir, fake_data=FLAGS.fake_data, validation_size=FLAGS.validation_size)
     sess = tf.InteractiveSession()
 
     # Create a multilayer model.
@@ -154,7 +152,7 @@ def train():
             # Record summaries and test-set accuracy
             summary, acc = sess.run([merged, accuracy], feed_dict=feed_dict(False))
             test_writer.add_summary(summary, i)
-            print(json.dumps({'step': i, 'accuracy': acc.item(), 'sinwave': FLAGS.sinscale * math.sin(i * FLAGS.sinfreq)}))
+            print(json.dumps({'step': i, 'accuracy': acc.item()}))
         else:
             # Record train set summaries, and train
             if i % 100 == 99:
@@ -174,13 +172,14 @@ def train():
                 train_writer.add_summary(summary, i)
 
     _, acc = sess.run([merged, accuracy], feed_dict=feed_dict(False))
-    print(json.dumps({'step': FLAGS.max_steps, 'accuracy': acc.item(), 'sinwave': FLAGS.sinscale * math.sin(FLAGS.max_steps * FLAGS.sinfreq)}))
+    print(json.dumps({'step': FLAGS.max_steps, 'accuracy': acc.item()}))
 
     train_writer.close()
     test_writer.close()
 
     # Saving weights and biases as outputs of the task.
-    outputs_dir = os.getenv('VH_OUTPUTS_DIR', '/tmp/tensorflow/mnist/outputs')
+    # outputs_dir = os.getenv('VH_OUTPUTS_DIR', '/tmp/tensorflow/mnist/outputs')
+    outputs_dir = '/home/juha/ws/mapr36/tensorflow-example/outputs'
     for i, ws in enumerate(all_weights):
         filename = os.path.join(outputs_dir, 'layer-{}-weights.csv'.format(i))
         np.savetxt(filename, ws.eval(), delimiter=",")
@@ -208,7 +207,7 @@ if __name__ == '__main__':
                         help='If true, uses fake data for unit testing')
     parser.add_argument('--log_dir', type=str, default='/tmp/tensorflow/mnist/logs/mnist_with_summaries',
                         help='Summaries log directory')
-    parser.add_argument('--sinfreq', type=float, default=1.0)
-    parser.add_argument('--sinscale', type=float, default=1.0)
+    parser.add_argument('--validation_size', type=int, default=5000,
+                        help='How many images used for validation')
     FLAGS, unparsed = parser.parse_known_args()
     tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)

@@ -1,19 +1,4 @@
 ---
-
-- step:
-    name: Batch feature extraction
-    image: tensorflow/tensorflow:1.5.0-devel
-    command: python batch_feature_extraction.py
-    inputs:
-      - name: training-set-images
-        default: https://valohai-mnist.s3.amazonaws.com/train-images-idx3-ubyte.gz
-      - name: training-set-labels
-        default: https://valohai-mnist.s3.amazonaws.com/train-labels-idx1-ubyte.gz
-      - name: test-set-images
-        default: https://valohai-mnist.s3.amazonaws.com/t10k-images-idx3-ubyte.gz
-      - name: test-set-labels
-        default: https://valohai-mnist.s3.amazonaws.com/t10k-labels-idx1-ubyte.gz
-
 - step:
     name: Train model
     image: tensorflow/tensorflow:1.5.0-devel
@@ -34,62 +19,12 @@
         description: Keep probability for training dropout
         type: float
         default: 0.9
-      - name: sinfreq
-        pass-as: --sinfreq={v}
-        description: Sine wave frequency
+      - name: dropout
+        pass-as: --dropout={v}
+        description: How many images for validation
         type: float
-        default: 1.0
-      - name: sinscale
-        pass-as: --sinscale={v}
-        description: Sine wave scale
-        type: float
-        default: 1.0
+        default: 5000
     inputs:
-      - name: training-set-images
-        default: https://valohai-mnist.s3.amazonaws.com/train-images-idx3-ubyte.gz
-      - name: training-set-labels
-        default: https://valohai-mnist.s3.amazonaws.com/train-labels-idx1-ubyte.gz
-      - name: test-set-images
-        default: https://valohai-mnist.s3.amazonaws.com/t10k-images-idx3-ubyte.gz
-      - name: test-set-labels
-        default: https://valohai-mnist.s3.amazonaws.com/t10k-labels-idx1-ubyte.gz
-
-- step:
-    name: Produce Metadata
-    image: tensorflow/tensorflow:1.5.0-devel
-    parameters:
-      - name: max_steps
-        pass-as: --max_steps={v}
-        description: Number of steps
-        type: integer
-        default: 20
-      - name: sinfreq
-        pass-as: --sinfreq={v}
-        description: Sine wave frequency
-        type: float
-        default: 1.0
-      - name: sinscale
-        pass-as: --sinscale={v}
-        description: Sine wave scale
-        type: float
-        default: 1.0
-      - name: sinfreq2
-        pass-as: --sinfreq2={v}
-        description: Sine wave frequency 2
-        type: float
-        default: 1.0
-      - name: sinscale2
-        pass-as: --sinscale2={v}
-        description: Sine wave scale 2
-        type: float
-        default: 1.0
-      - name: stepdelay
-        pass-as: --stepdelay={v}
-        description: Delay per step
-        type: float
-        default: 0.5
-    command:
-      python sinwave.py {parameters}
 
 - step:
     name: Worker environment check
@@ -101,27 +36,3 @@
       - python --version
       - nvcc --version | grep release
       - cat /usr/include/x86_64-linux-gnu/cudnn_v*.h | grep CUDNN_MAJOR -A 2
-
-- step:
-    name: Test multiple optional variables
-    image: tensorflow/tensorflow:1.5.0-devel
-    parameters:
-      - name: notopt
-        pass-as: --notopt={v}
-        description: Not optional
-        type: float
-        default: 1.0
-      - name: varA
-        pass-as: --varA={v}
-        description: Optional variable A
-        type: float
-        default: 1.0
-        optional: true
-      - name: varB
-        pass-as: --varA={v}
-        description: Optional variable A
-        type: float
-        default: 1.0
-        optional: true
-    command:
-      - echo {parameters}
