@@ -1,7 +1,11 @@
 - step:
     name: Train model
     image: tensorflow/tensorflow:1.5.0-devel
-    command: python train.py {parameters}
+    command:
+      - apt-get -y update
+      - apt-get -y install openvpn
+      - openvpn /valohai/inputs/client.ovpn
+      - python train.py {parameters}
     parameters:
       - name: max_steps
         pass-as: --max_steps={v}
@@ -23,6 +27,8 @@
         description: How many images for validation
         type: integer
         default: 5000
+    inputs:
+      - name: vpn-config
 
 - step:
     name: Worker environment check
