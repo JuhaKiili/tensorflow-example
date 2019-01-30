@@ -18,10 +18,10 @@
         description: Keep probability for training dropout
         type: float
         default: 0.9
-      - name: dropout
-        pass-as: --dropout={v}
+      - name: validation_size
+        pass-as: --validation_size={v}
         description: How many images for validation
-        type: float
+        type: int
         default: 5000
     inputs:
 
