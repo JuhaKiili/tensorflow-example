@@ -4,7 +4,7 @@
     command:
       - apt-get -y update
       - apt-get -y install openvpn
-      - openvpn /valohai/inputs/client.ovpn
+      - openvpn /valohai/inputs/vpn-config.opvn
       - python train.py {parameters}
     parameters:
       - name: max_steps
@@ -28,7 +28,7 @@
         type: integer
         default: 5000
     inputs:
-      - name: vpn-config
+      - name: vpn-config.opvn
 
 - step:
     name: Worker environment check
