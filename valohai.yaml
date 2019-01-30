@@ -4,7 +4,7 @@
     command:
       - apt-get -y update
       - apt-get -y install openvpn
-      - openvpn /valohai/inputs/vpn-config.opvn
+      - openvpn /valohai/inputs/vpn-config.ovpn
       - python train.py {parameters}
     parameters:
       - name: max_steps
