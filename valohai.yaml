@@ -28,7 +28,7 @@
         type: integer
         default: 5000
     inputs:
-      - name: vpn-config.opvn
+      - name: vpn-config.ovpn
 
 - step:
     name: Worker environment check
