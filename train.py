@@ -21,8 +21,8 @@ FLAGS = None
 
 def train():
     # Import input data
-    # INPUTS_DIR = os.getenv('VH_INPUTS_DIR', '/tmp/tensorflow/mnist/inputs')
-    INPUTS_DIR = '/home/juha/ws/mapr36/tensorflow-example/inputs'
+    # INPUTS_DIR = '/home/juha/ws/mapr36/tensorflow-example/inputs'
+    INPUTS_DIR = os.getenv('VH_INPUTS_DIR', '/tmp/tensorflow/mnist/inputs')
     data_set_files = [
         get_first_file(os.path.join(INPUTS_DIR, 'training-set-images')),
         get_first_file(os.path.join(INPUTS_DIR, 'training-set-labels')),
@@ -178,8 +178,8 @@ def train():
     test_writer.close()
 
     # Saving weights and biases as outputs of the task.
-    # outputs_dir = os.getenv('VH_OUTPUTS_DIR', '/tmp/tensorflow/mnist/outputs')
-    outputs_dir = '/home/juha/ws/mapr36/tensorflow-example/outputs'
+    # outputs_dir = '/home/juha/ws/mapr36/tensorflow-example/outputs'
+    outputs_dir = os.getenv('VH_OUTPUTS_DIR', '/tmp/tensorflow/mnist/outputs')
     for i, ws in enumerate(all_weights):
         filename = os.path.join(outputs_dir, 'layer-{}-weights.csv'.format(i))
         np.savetxt(filename, ws.eval(), delimiter=",")
