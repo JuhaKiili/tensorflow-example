@@ -4,8 +4,8 @@ if [ -z "$MAPR_SNAPSHOT" ]
 then
   MAPR_SNAPSHOT=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
   echo "Creating MapR snapshot: $MAPR_SNAPSHOT"
-  echo curl -k -X POST "https://$MAPR_REST/rest/volume/snapshot/create?volume=$MAPR_VOLUME&snapshotname=$MAPR_SNAPSHOT" --user valohai:valohai
-  # curl -k -X POST "https://$MAPR_REST/rest/volume/snapshot/create?volume=$MAPR_VOLUME&snapshotname=$MAPR_SNAPSHOT" --user valohai:valohai
+  echo curl -k -X POST "https://$MAPR_REST/rest/volume/snapshot/create?volume=$MAPR_VOLUME&snapshotname=$MAPR_SNAPSHOT" --user $MAPR_USERNAME:$MAPR_PASSWORD
+  # curl -k -X POST "https://$MAPR_REST/rest/volume/snapshot/create?volume=$MAPR_VOLUME&snapshotname=$MAPR_SNAPSHOT" --user $MAPR_USERNAME:$MAPR_PASSWORD
 else
   echo "Using existing MapR snapshot: $MAPR_SNAPSHOT"
 fi
