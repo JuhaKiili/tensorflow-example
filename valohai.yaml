@@ -14,7 +14,7 @@
         pass-as: --learning_rate={v}
         description: Initial learning rate
         type: float
-        default: 0.0001
+        default: 0.001
       - name: dropout
         pass-as: --dropout={v}
         description: Keep probability for training dropout
