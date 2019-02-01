@@ -13,3 +13,4 @@ wget -k --no-verbose "http://$MAPR_HTTPFS/webhdfs/v1/tmp/$MAPR_VOLUME/.snapshot/
 wget -k --no-verbose "http://$MAPR_HTTPFS/webhdfs/v1/tmp/$MAPR_VOLUME/.snapshot/$MAPR_SNAPSHOT/training-set-labels/train-labels-idx1-ubyte.gz?op=open" -O "$VH_INPUTS_DIR/training-set-labels/train-labels-idx1-ubyte.gz" --user $MAPR_USERNAME --password $MAPR_PASSWORD
 wget -k --no-verbose "http://$MAPR_HTTPFS/webhdfs/v1/tmp/$MAPR_VOLUME/.snapshot/$MAPR_SNAPSHOT/test-set-images/t10k-images-idx3-ubyte.gz?op=open" -O "$VH_INPUTS_DIR/test-set-images/t10k-images-idx3-ubyte.gz" --user $MAPR_USERNAME --password $MAPR_PASSWORD
 wget -k --no-verbose "http://$MAPR_HTTPFS/webhdfs/v1/tmp/$MAPR_VOLUME/.snapshot/$MAPR_SNAPSHOT/test-set-labels/t10k-labels-idx1-ubyte.gz?op=open" -O "$VH_INPUTS_DIR/test-set-labels/t10k-labels-idx1-ubyte.gz" --user $MAPR_USERNAME --password $MAPR_PASSWORD
+ls -lR /valohai/inputs
