@@ -1,6 +1,6 @@
 - step:
     name: Train model
-    image: tensorflow/tensorflow:1.5.0-devel
+    image: juhavalohai/mapr
     command:
       - sh mapr.sh
       - python train.py {parameters}
