@@ -9,6 +9,7 @@ else
   echo "Using existing MapR snapshot: $MAPR_SNAPSHOT"
 fi
 
+echo wget -k "http://$MAPR_HTTPFS/webhdfs/v1/tmp/$MAPR_VOLUME/.snapshot/$MAPR_SNAPSHOT/training-set-images/train-images-idx3-ubyte.gz?op=open" -O "$VH_INPUTS_DIR/training-set-images/train-images-idx3-ubyte.gz" --verbose --user $MAPR_USERNAME --password $MAPR_PASSWORD
 wget -k "http://$MAPR_HTTPFS/webhdfs/v1/tmp/$MAPR_VOLUME/.snapshot/$MAPR_SNAPSHOT/training-set-images/train-images-idx3-ubyte.gz?op=open" -O "$VH_INPUTS_DIR/training-set-images/train-images-idx3-ubyte.gz" --verbose --user $MAPR_USERNAME --password $MAPR_PASSWORD
 wget -k "http://$MAPR_HTTPFS/webhdfs/v1/tmp/$MAPR_VOLUME/.snapshot/$MAPR_SNAPSHOT/training-set-labels/train-labels-idx1-ubyte.gz?op=open" -O "$VH_INPUTS_DIR/training-set-labels/train-labels-idx1-ubyte.gz" --verbose --user $MAPR_USERNAME --password $MAPR_PASSWORD
 wget -k "http://$MAPR_HTTPFS/webhdfs/v1/tmp/$MAPR_VOLUME/.snapshot/$MAPR_SNAPSHOT/test-set-images/t10k-images-idx3-ubyte.gz?op=open" -O "$VH_INPUTS_DIR/test-set-images/t10k-images-idx3-ubyte.gz" --verbose --user $MAPR_USERNAME --password $MAPR_PASSWORD
