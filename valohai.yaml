@@ -114,14 +114,14 @@
       - name: varA
         pass-as: --varA={v}
         description: Optional variable A
-        type: float
-        default: 1.0
+        type: boolean
+        default: true
         optional: true
       - name: varB
         pass-as: --varB={v}
         description: Optional variable B
-        type: float
-        default: 2.0
+        type: boolean
+        default: false
         optional: true
     command:
       - echo {parameters}
