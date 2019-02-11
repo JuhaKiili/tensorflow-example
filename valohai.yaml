@@ -114,13 +114,13 @@
       - name: varA
         pass-as: --varA={v}
         description: Optional variable A
-        type: boolean
+        type: flag
         default: true
         optional: true
       - name: varB
         pass-as: --varB={v}
         description: Optional variable B
-        type: boolean
+        type: flag
         default: false
         optional: true
     command:
