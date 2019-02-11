@@ -112,13 +112,13 @@
         type: float
         default: 1.0
       - name: varA
-        pass-as: --varA={v}
+        pass-as: --varA
         description: Optional variable A
         type: flag
         default: true
         optional: true
       - name: varB
-        pass-as: --varB={v}
+        pass-as: --varB
         description: Optional variable B
         type: flag
         default: false
