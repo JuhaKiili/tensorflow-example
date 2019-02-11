@@ -113,15 +113,27 @@
         default: 1.0
       - name: varA
         pass-as: --varA
-        description: Optional variable A
-        type: flag
-        default: true
-        optional: true
-      - name: varB
-        pass-as: --varB
-        description: Optional variable B
+        description: Variable A (default false)
         type: flag
         default: false
+        optional: false
+      - name: varB
+        pass-as: --varB
+        description: Variable B (default true)
+        type: flag
+        default: true
+        optional: false
+      - name: varC
+        pass-as: --varC
+        description: Optional variable C (default false)
+        type: flag
+        default: false
+        optional: true
+      - name: varD
+        pass-as: --varD
+        description: Optional variable D (default true)
+        type: flag
+        default: true
         optional: true
     command:
       - echo {parameters}
