@@ -111,6 +111,16 @@
         description: Not optional
         type: float
         default: 1.0
+      - name: var1
+        pass-as: --var1={v}
+        description: Optional float default 1.0
+        type: float
+        default: 1.0
+      - name: var2
+        pass-as: --var2={v}
+        description: Optional float default 2.0
+        type: float
+        default: 2.0
       - name: varA
         pass-as: --varA
         description: Variable A (default false)
