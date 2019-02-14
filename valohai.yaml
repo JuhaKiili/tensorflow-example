@@ -136,7 +136,6 @@
         default: true
         optional: false
       - name: varC
-        pass-as: --varC
         description: Optional variable C (default false)
         type: flag
         default: false
