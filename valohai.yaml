@@ -124,13 +124,13 @@
         default: 2.0
         optional: true
       - name: varA
-        pass-as: --varA
+        pass-as: --varA={v}
         description: Variable A (default false)
         type: flag
         default: false
         optional: false
       - name: varB
-        pass-as: --varB
+        pass-as: --varB123
         description: Variable B (default true)
         type: flag
         default: true
